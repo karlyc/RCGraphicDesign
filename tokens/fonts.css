@@ -1,0 +1,5 @@
+/* RC Graphic Design — webfonts. Google Fonts CDN (see readme.md > Typography).
+   Playfair Display: the high-contrast serif of the RC monogram.
+   Saira Condensed: the condensed all-caps of "GRAPHIC DESIGNS & PRINTING".
+   Figtree: neutral UI/body sans. */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..700&family=Saira+Condensed:wght@500;600;700;800&family=Figtree:ital,wght@0,300..800;1,300..700&display=swap");
