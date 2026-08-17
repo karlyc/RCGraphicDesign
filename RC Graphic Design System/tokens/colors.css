@@ -1,0 +1,45 @@
+:root{
+/* ── Base: ink (from the logo's charcoal card) ───────────────── */
+--ink-950:#131316;--ink-900:#1B1B1F;--ink-800:#26262B;--ink-700:#33333A;--ink-600:#4A4A52;
+--ink-500:#6E6E78;--ink-400:#9A9AA4;--ink-300:#C4C4CC;--ink-200:#E2E2E7;--ink-100:#F1F1F4;
+--ink-50:#F8F8FA;--white:#FFFFFF;
+/* silver — the letterform fill of the RC mark */
+--silver:#A7A8AF;--silver-light:#C9CAD0;
+
+/* ── Primary: pine green ────────────────────────────────────── */
+--pine-900:#193E0F;--pine-800:#255416;--pine-700:#2F6B1D;--pine-600:#489A2C;--pine-500:#5FC13E;--pine-400:#84D468;
+--pine-200:#C9EDBA;--pine-100:#EAF8E3;--pine-50:#F5FCF2;
+
+/* ── Process accents: use sparingly, one per surface ─────────── */
+--cyan-600:#0080AE;--cyan-500:#00AEEF;--cyan-100:#DDF3FC;
+--yellow-500:#FFC91B;--yellow-400:#FFD95C;--yellow-100:#FFF6D9;
+
+/* ── Semantic ───────────────────────────────────────────────── */
+--green-600:#2D6A4F;--green-100:#E3F1E9;
+--amber-600:#B4740B;--amber-100:#FBF0DA;
+--red-600:#C2321F;--red-100:#FBE6E2;
+--blue-600:#0B6E99;--blue-100:#E1F1F8;
+
+/* ── Semantic aliases ───────────────────────────────────────── */
+--text-strong:var(--ink-900);--text-body:var(--ink-700);--text-muted:var(--ink-500);
+--text-faint:var(--ink-400);--text-inverse:var(--white);--text-on-dark-muted:var(--ink-300);
+--text-link:var(--pine-600);--text-link-hover:var(--pine-700);
+
+--surface-page:var(--ink-50);--surface-card:var(--white);--surface-sunken:var(--ink-100);
+--surface-dark:var(--ink-700);--surface-darker:var(--ink-900);--surface-tint:var(--pine-50);
+--surface-selected:var(--pine-100);
+
+--border-subtle:var(--ink-200);--border-default:var(--ink-300);--border-strong:var(--ink-600);
+--border-selected:var(--pine-500);--border-focus:var(--cyan-500);
+
+--action-primary:var(--pine-700);--action-primary-hover:var(--pine-800);
+--action-primary-active:var(--pine-900);--accent-bright:var(--pine-500);--action-secondary:var(--ink-800);
+--action-secondary-hover:var(--ink-900);--action-disabled:var(--ink-200);
+--action-disabled-text:var(--ink-400);
+
+--status-success-fg:var(--green-600);--status-success-bg:var(--green-100);
+--status-warning-fg:var(--amber-600);--status-warning-bg:var(--amber-100);
+--status-error-fg:var(--red-600);--status-error-bg:var(--red-100);
+--status-info-fg:var(--blue-600);--status-info-bg:var(--blue-100);
+--status-rush-fg:#8A5200;--status-rush-bg:var(--yellow-100);
+}

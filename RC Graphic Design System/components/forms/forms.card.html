@@ -1,0 +1,35 @@
+<!-- @dsCard group="Components" viewport="700x430" name="Forms" subtitle="Fields, selects, choices, quantity stepper, spec option tiles" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:20px;background:var(--white)}.grp{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.lbl{font:var(--weight-bold) 10px/1 var(--font-condensed);letter-spacing:var(--tracking-caps-loose);text-transform:uppercase;color:var(--ink-400);margin:0 0 8px}.col{display:flex;flex-direction:column;gap:12px}</style></head>
+<body><div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const {Button,IconButton,Icon,Badge,Tag,Card,Logo,FormField,Input,Textarea,Select,Checkbox,Radio,Switch,QuantityStepper,OptionTile,Tabs,Breadcrumb,Stepper,Callout,Toast,Tooltip,Dialog,ProductCard,PriceTable,SpecList,TurnaroundOption,ReviewStars}=window.RCGraphicDesignSystem_084885;
+
+function Demo(){const [q,setQ]=React.useState(500),[sel,setSel]=React.useState('16pt matte'),[on,setOn]=React.useState(true),[sw,setSw]=React.useState(true);
+ return <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24}}>
+ <div className="col">
+  <FormField label="Company" required htmlFor="c"><Input id="c" defaultValue="Riverbend Landscaping"/></FormField>
+  <FormField label="Paper stock" htmlFor="s"><Select id="s" options={['14pt gloss','16pt matte','18pt uncoated','32pt ultra thick']}/></FormField>
+  <FormField label="Trim size" hint="Standard is 3.5 x 2 in." htmlFor="t"><Input id="t" suffix="in" defaultValue="3.5 x 2"/></FormField>
+  <FormField label="Job notes" htmlFor="n"><Textarea id="n" rows={2} placeholder="Deadline, delivery, anything unusual"/></FormField>
+  <FormField label="Email" error="Enter a valid email." htmlFor="e"><Input id="e" invalid defaultValue="rob@"/></FormField>
+ </div>
+ <div className="col">
+  <div><p className="lbl">Option tiles</p><div className="col" style={{gap:8}}>
+   {[['14pt gloss','Coated both sides','+$0','#F4F4F2'],['16pt matte','Uncoated back','+$14','#EFEDE7'],['32pt ultra thick','Painted edge available','+$46','#E6E2DA']].map(([t,m,p,c])=>
+    <OptionTile key={t} title={t} meta={m} priceNote={p} swatch={c} selected={sel===t} onClick={()=>setSel(t)}/>)}
+  </div></div>
+  <div><p className="lbl">Quantity</p><QuantityStepper value={q} step={250} min={250} onChange={setQ}/></div>
+  <div><p className="lbl">Choices</p><div className="col" style={{gap:10}}>
+   <Checkbox label="Add rounded corners" description="+$12 per 500" checked={on} onChange={()=>setOn(!on)}/>
+   <Radio name="p" label="Email PDF proof" description="Adds 1 business day" checked/>
+   <Radio name="p" label="No proof — print as supplied"/>
+   <Switch checked={sw} onChange={setSw} label="Show back side"/>
+  </div></div>
+ </div></div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script></body></html>

@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Core" subtitle="Buttons, icon buttons, badges, tags, cards, brand mark" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:20px;background:var(--white)}.grp{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.lbl{font:var(--weight-bold) 10px/1 var(--font-condensed);letter-spacing:var(--tracking-caps-loose);text-transform:uppercase;color:var(--ink-400);margin:0 0 8px}.col{display:flex;flex-direction:column;gap:12px}</style></head>
+<body><div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const {Button,IconButton,Icon,Badge,Tag,Card,Logo,FormField,Input,Textarea,Select,Checkbox,Radio,Switch,QuantityStepper,OptionTile,Tabs,Breadcrumb,Stepper,Callout,Toast,Tooltip,Dialog,ProductCard,PriceTable,SpecList,TurnaroundOption,ReviewStars}=window.RCGraphicDesignSystem_084885;
+
+function Demo(){return <div className="col">
+ <div><p className="lbl">Button variants · md</p><div className="grp">
+  <Button>Start your order</Button><Button variant="secondary">Get a quote</Button>
+  <Button variant="outline" icon="upload">Upload artwork</Button><Button variant="ghost">Learn more</Button>
+  <Button disabled>Disabled</Button></div></div>
+ <div><p className="lbl">Sizes &amp; icons</p><div className="grp">
+  <Button size="sm">Small</Button><Button size="md" iconAfter="arrow-right">Medium</Button>
+  <Button size="lg" icon="printer">Large</Button>
+  <IconButton icon="search" label="Search" variant="outline"/><IconButton icon="shopping-cart" label="Cart" badge={2} variant="solid"/>
+  <IconButton icon="user" label="Account"/></div></div>
+ <div><p className="lbl">Badges &amp; tags</p><div className="grp">
+  <Badge tone="rush" icon="zap">Next day</Badge><Badge tone="success" icon="badge-check">Proof approved</Badge>
+  <Badge tone="warning">Awaiting file</Badge><Badge tone="error">Print error</Badge><Badge tone="dark">New</Badge>
+  <Tag selected onRemove={()=>{}}>14pt gloss</Tag><Tag onRemove={()=>{}}>Yard signs</Tag></div></div>
+ <div><p className="lbl">Cards</p><div className="grp" style={{alignItems:'stretch'}}>
+  <Card interactive style={{width:180}}><b style={{font:'var(--type-h3)'}}>Default</b><div style={{font:'var(--type-body-sm)',color:'var(--text-muted)',marginTop:4}}>Hairline + shadow-sm</div></Card>
+  <Card sheet style={{width:180}}><b style={{font:'var(--type-h3)'}}>Sheet</b><div style={{font:'var(--type-body-sm)',color:'var(--text-muted)',marginTop:4}}>Stacked-paper edge</div></Card>
+  <Card tone="dark" style={{width:180}}><b style={{font:'var(--type-h3)',color:'#fff'}}>Dark</b><div style={{font:'var(--type-body-sm)',color:'var(--ink-300)',marginTop:4}}>Charcoal band</div></Card>
+  <Card tone="tint" style={{width:180}}><Logo variant="onLight" height={38}/></Card></div></div>
+</div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script></body></html>

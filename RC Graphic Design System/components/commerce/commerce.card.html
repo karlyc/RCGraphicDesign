@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" viewport="700x430" name="Commerce" subtitle="Product tiles, price ladder, turnaround cards, spec list, ratings" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:20px;background:var(--white)}.grp{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.lbl{font:var(--weight-bold) 10px/1 var(--font-condensed);letter-spacing:var(--tracking-caps-loose);text-transform:uppercase;color:var(--ink-400);margin:0 0 8px}.col{display:flex;flex-direction:column;gap:12px}</style></head>
+<body><div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const {Button,IconButton,Icon,Badge,Tag,Card,Logo,FormField,Input,Textarea,Select,Checkbox,Radio,Switch,QuantityStepper,OptionTile,Tabs,Breadcrumb,Stepper,Callout,Toast,Tooltip,Dialog,ProductCard,PriceTable,SpecList,TurnaroundOption,ReviewStars}=window.RCGraphicDesignSystem_084885;
+
+function Demo(){const [q,setQ]=React.useState(500),[t,setT]=React.useState('Next day');
+ return <div className="col" style={{gap:20}}>
+ <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12}}>
+  <ProductCard name="Business cards" blurb="16pt, 3.5 x 2 in, full color" startingAt="$24.50" turnaround="Next day" icon="credit-card" badge="Popular"/>
+  <ProductCard name="Yard signs" blurb="18 x 24 in coroplast + H-stake" startingAt="$11.00" turnaround="2 days" icon="signpost"/>
+  <ProductCard name="Carbonless forms" blurb="2 or 3 part, numbered" startingAt="$68.00" turnaround="3 days" icon="file-text"/>
+ </div>
+ <div style={{display:'grid',gridTemplateColumns:'1.2fr 1fr',gap:20,alignItems:'start'}}>
+  <div><p className="lbl">Price ladder</p><PriceTable selected={q} onSelect={setQ} rows={[
+   {qty:250,each:'$0.14',total:'$35.00'},{qty:500,each:'$0.09',total:'$45.00',note:'Best value'},
+   {qty:1000,each:'$0.07',total:'$70.00'}]}/></div>
+  <div className="col">
+   <div><p className="lbl">Turnaround</p><div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+    <TurnaroundOption name="Next day" shipsBy="Ships Thu, Aug 14" price="+$18" recommended selected={t==='Next day'} onClick={()=>setT('Next day')}/>
+    <TurnaroundOption name="3 days" shipsBy="Ships Mon, Aug 18" price="Included" selected={t==='3 days'} onClick={()=>setT('3 days')}/>
+   </div></div>
+   <div><p className="lbl">Specs &amp; rating</p><SpecList items={[{label:'Size',value:'3.5 x 2 in'},{label:'Stock',value:'16pt matte'},{label:'Sides',value:'Both, full color'}]}/>
+   <div style={{marginTop:10}}><ReviewStars value={4.8} count={1240}/></div></div>
+  </div>
+ </div></div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script></body></html>
