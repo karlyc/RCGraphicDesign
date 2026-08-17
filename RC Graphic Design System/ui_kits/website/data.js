@@ -1,9 +1,9 @@
 const RC_PRODUCTS=[
- {slug:'business-cards',name:'Business cards',icon:'credit-card',blurb:'16pt, 3.5 x 2 in, full color both sides',from:'$24.50',turnaround:'Next day',badge:'Popular',image:'../../assets/businesscards.png'},
- {slug:'flyers',name:'Flyers',icon:'file-text',blurb:'8.5 x 11 in, 100lb gloss text',from:'$38.00',turnaround:'Next day',image:'../../assets/flyers.png'},
- {slug:'carbonless-forms',name:'Carbonless forms',icon:'files',blurb:'2 or 3 part, sequentially numbered',from:'$68.00',turnaround:'3 days',image:'../../assets/carbonlessforms.png'},
+ {slug:'business-cards',name:'Business cards',icon:'credit-card',blurb:'16pt, 3.5 x 2 in, full color both sides',from:'$25.00',turnaround:'Next day',badge:'Popular',image:'../../assets/businesscards.png'},
+ {slug:'flyers',name:'Flyers',icon:'file-text',blurb:'8.5 x 11 in, 100lb gloss text',from:'$29.95',turnaround:'Next day',image:'../../assets/flyers.png'},
+ {slug:'carbonless-forms',name:'Carbonless forms',icon:'files',blurb:'2 or 3 part, sequentially numbered',from:'$50.00',turnaround:'3 days',image:'../../assets/carbonlessforms.png'},
  {slug:'banners',name:'Banners',icon:'flag',blurb:'13oz vinyl, hemmed with grommets',from:'$54.00',turnaround:'2 days',image:'../../assets/banners.png'},
- {slug:'yard-signs',name:'Yard signs',icon:'signpost',blurb:'18 x 24 in coroplast + H-stake',from:'$11.00',turnaround:'2 days',image:'../../assets/yardsign.png'},
+ {slug:'yard-signs',name:'Yard signs',icon:'signpost',blurb:'18 x 24 in coroplast + H-stake',from:'$5.50',turnaround:'2 days',image:'../../assets/yardsign.png'},
  {slug:'custom-stickers',name:'Custom stickers',icon:'sticker',blurb:'Die-cut vinyl, indoor or outdoor',from:'$19.00',turnaround:'3 days',image:'../../assets/stickers.png'}
 ];
 const RC_STOCKS=[
