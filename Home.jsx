@@ -12,8 +12,8 @@ function Hero({go}){
         <p style={{marginTop:'var(--space-4)',font:'var(--type-body)',fontSize:'var(--text-md)',color:'var(--ink-300)',maxWidth:'46ch',textWrap:'pretty'}}>
           Our printing services combine cutting-edge technology with meticulous attention to detail, ensuring your projects meet the highest standards of quality and professionalism. Trust us to deliver seamless, precise results that reflect your brand's excellence. We also offer the best prices in the El Paso County. As the only Union Printer in El Paso, we can match other printer’s prices if not beat their prices.</p>
         <div style={{display:'flex',gap:'var(--space-3)',marginTop:'var(--space-7)'}}>
-          <Button size="lg" onClick={()=>go('product')} iconAfter="arrow-right">Start your order</Button>
-          <Button size="lg" variant="onDark" onClick={()=>go('contact')}>Get a quote</Button>
+          <Button size="lg" icon="phone" onClick={()=>{window.location.href='tel:+19152762917';}}>Call (915) 276-2917</Button>
+          <Button size="lg" variant="onDark" onClick={()=>go('contact')} iconAfter="arrow-right">Contact us</Button>
         </div>
         <div style={{display:'flex',gap:'var(--space-7)',marginTop:'var(--space-8)',flexWrap:'wrap'}}>
           {[['printer','In-house press'],['badge-check','Free digital proof'],['truck','Ship or pick up']].map(([i,l])=>
@@ -35,11 +35,11 @@ function Hero({go}){
 
 
 
-function Home({go,onAdd}){
+function Home({go}){
   return <main>
     <Hero go={go}/>
     <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'var(--space-10) var(--space-6) 0'}}>
-      <SectionHead eyebrow="What we print" title="Six things, done properly" note="Prices shown are for the smallest run."/>
+      <SectionHead eyebrow="What we print" title="Six things, done properly" note="Starting prices for the smallest run. Call for exact pricing."/>
       <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'var(--space-5)'}}>
         {window.RC_PRODUCTS.map(p=><ProductCard key={p.slug} name={p.name} blurb={p.blurb} startingAt={p.from}
           turnaround={p.turnaround} icon={p.icon} image={p.image} badge={p.badge} onClick={()=>go('product')}/>)}
@@ -50,9 +50,9 @@ function Home({go,onAdd}){
 
     <section style={{marginTop:'var(--space-11)',background:'var(--surface-sunken)'}}>
       <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'var(--space-11) var(--space-6)'}}>
-        <SectionHead eyebrow="How it works" title="File to doorstep in four steps"/>
+        <SectionHead eyebrow="How it works" title="From first call to finished print"/>
         <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'var(--space-5)'}}>
-          {[['upload','Send your file','PDF, AI or a photo of a sketch.'],
+          {[['phone','Contact us','Call, email or stop by the shop with your project.'],
             ['pen-tool','We set it up','Bleed, trim and color checked by hand.'],
             ['badge-check','Approve the proof','Digital proof back the same day.'],
             ['truck','Print & deliver','Ship anywhere or pick up in shop.']].map(([i,t,d],n)=>
@@ -87,7 +87,7 @@ function Home({go,onAdd}){
           <div style={{marginTop:'var(--space-4)',font:'var(--weight-bold) var(--text-2xs)/1.4 var(--font-condensed)',
             letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',color:'var(--text-muted)'}}>Dana W. · Riverbend Landscaping</div>
           <div style={{marginTop:'var(--space-5)'}}>
-            <Callout tone="info" title="Reorders are one click">Past jobs stay on file for exact reprints.</Callout></div>
+            <Callout tone="info" title="Reorders are easy">Past jobs stay on file for exact reprints. Just give us a call.</Callout></div>
         </Card>
       </div>
     </div>
@@ -101,7 +101,7 @@ function CustomPrinting(){
         padding:'var(--space-9) var(--space-6)',background:'var(--ink-900)',borderRight:'3px solid var(--pine-500)'}}>
         <Logo height={44} src="assets/logo-rc-lockup-dark.png"/>
         <span style={{font:'var(--weight-bold) var(--text-2xs)/1 var(--font-condensed)',letterSpacing:'var(--tracking-caps-loose)',
-          textTransform:'uppercase',color:'var(--silver)',textAlign:'center'}}>Graphic Designs &amp; Printing</span>
+          textTransform:'uppercase',color:'var(--silver)',textAlign:'center'}}>RC Graphic Designs &amp; Printing</span>
       </div>
       <div style={{display:'flex',flexDirection:'column',justifyContent:'center',gap:'var(--space-5)',
         padding:'var(--space-9) var(--space-8)'}}>

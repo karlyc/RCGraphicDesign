@@ -12,11 +12,11 @@ function CatalogPage({go}){
       <div>
         <h1 style={{font:'var(--type-h1)'}}>All products</h1>
         <p style={{marginTop:'var(--space-3)',font:'var(--type-body)',color:'var(--text-muted)',maxWidth:'54ch'}}>
-          Everything we print, with starting prices for the smallest run. Need something not listed? Ask for a quote.</p>
+          Everything we print, with starting prices for the smallest run. Need something not listed? Give us a call.</p>
       </div>
       <div style={{display:'flex',gap:'var(--space-3)',alignItems:'center'}}>
         <Input icon="search" placeholder="Search products" style={{width:220}}/>
-        <Select options={['Most ordered','Price: low to high','Fastest turnaround']} style={{width:200}}/>
+        <Select options={['Most popular','Price: low to high','Fastest turnaround']} style={{width:200}}/>
       </div>
     </div>
     <div style={{marginTop:'var(--space-6)'}}><Tabs items={cats} value={filter} onChange={setFilter}/></div>
@@ -29,8 +29,8 @@ function CatalogPage({go}){
     <Card tone="tint" pad="var(--space-7)" style={{marginTop:'var(--space-8)',display:'flex',
       alignItems:'center',justifyContent:'space-between',gap:'var(--space-6)'}}>
       <div><div style={{font:'var(--type-h3)',color:'var(--text-strong)'}}>Something custom?</div>
-        <p style={{font:'var(--type-body-sm)',color:'var(--ink-700)',marginTop:4}}>Menus, door hangers, table tents, vehicle magnets — send the details and we will price it.</p></div>
-      <Button onClick={()=>go('contact')}>Request a quote</Button></Card>
+        <p style={{font:'var(--type-body-sm)',color:'var(--ink-700)',marginTop:4}}>Menus, door hangers, table tents, vehicle magnets — call or email us with the details and we will price it.</p></div>
+      <Button onClick={()=>go('contact')}>Contact us</Button></Card>
   </main>;
 }
 Object.assign(window,{CatalogPage});

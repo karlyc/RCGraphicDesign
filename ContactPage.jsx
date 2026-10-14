@@ -1,47 +1,45 @@
 (()=>{
-const {Button,Icon,Card,FormField,Input,Textarea,Select,Checkbox,Callout,SpecList,Badge}=window.RCGraphicDesignSystem_084885;
+const {Icon,Card,SpecList,Badge}=window.RCGraphicDesignSystem_084885;
 
-function ContactPage({go,onSent}){
-  const [sent,setSent]=React.useState(false);
+function ContactPage(){
+  const ways=[
+    ['phone','Call us','(915) 276-2917','tel:+19152762917','Mon–Fri, 8 AM – 5 PM. The fastest way to get pricing.'],
+    ['mail','Email us','rcgraphics77@gmail.com','mailto:rcgraphics77@gmail.com','Attach your artwork. We reply the same business day.'],
+    ['map-pin','Where we are','East side El Paso, TX 79936',null,'Call or email ahead to set up a visit or a pickup.']];
   return <main style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'var(--space-9) var(--space-6) 0'}}>
     <div style={{display:'grid',gridTemplateColumns:'1.1fr .9fr',gap:'var(--space-9)'}}>
       <div>
-        <div style={{font:'var(--type-eyebrow)',letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',color:'var(--pine-600)'}}>Request a quote</div>
-        <h1 style={{font:'var(--type-h1)',marginTop:'var(--space-3)'}}>Tell us about the job</h1>
+        <div style={{font:'var(--type-eyebrow)',letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',color:'var(--pine-600)'}}>Contact us</div>
+        <h1 style={{font:'var(--type-h1)',marginTop:'var(--space-3)'}}>Talk to us about your job</h1>
         <p style={{marginTop:'var(--space-3)',font:'var(--type-body)',color:'var(--text-body)',maxWidth:'50ch'}}>
-          Quotes come back the same business day. If you already have a file, attach it and we will check it for press.</p>
-        <Card pad="var(--space-6)" style={{marginTop:'var(--space-6)'}}>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'var(--space-4)'}}>
-            <FormField label="Name" required htmlFor="c1"><Input id="c1" placeholder="Dana Whitlock"/></FormField>
-            <FormField label="Company" htmlFor="c2"><Input id="c2" placeholder="Riverbend Landscaping"/></FormField>
-            <FormField label="Email" required htmlFor="c3"><Input id="c3" placeholder="dana@riverbend.com"/></FormField>
-            <FormField label="Phone" htmlFor="c4"><Input id="c4" placeholder="(704) 555-0148"/></FormField>
-            <FormField label="Product" htmlFor="c5"><Select id="c5" options={window.RC_PRODUCTS.map(p=>p.name).concat(['Something else'])}/></FormField>
-            <FormField label="Quantity" htmlFor="c6"><Input id="c6" suffix="pcs" placeholder="500"/></FormField>
-            <FormField label="Details" htmlFor="c7" hint="Sizes, stock, colors, deadline." style={{gridColumn:'span 2'}}>
-              <Textarea id="c7" rows={4} placeholder="Two-sided, 16pt matte, needed by Friday."/></FormField>
-          </div>
-          <div style={{marginTop:'var(--space-5)',display:'flex',alignItems:'center',justifyContent:'space-between',gap:'var(--space-5)'}}>
-            <Checkbox label="I have artwork ready to send" checked/>
-            <div style={{display:'flex',gap:'var(--space-3)'}}>
-              <Button variant="outline" icon="paperclip">Attach file</Button>
-              <Button onClick={()=>{setSent(true);onSent&&onSent();}}>Send request</Button></div>
-          </div>
-          {sent&&<div style={{marginTop:'var(--space-5)'}}>
-            <Callout tone="success" title="Request sent">We will reply to your email today with pricing and a turnaround date.</Callout></div>}
-        </Card>
+          We take every order directly so we can get the details right. Reach out by phone, email or in person and we will
+          give you pricing and a turnaround date.</p>
+        <div style={{marginTop:'var(--space-6)',display:'flex',flexDirection:'column',gap:'var(--space-4)'}}>
+          {ways.map(([i,t,v,href,d])=><Card key={t} pad="var(--space-6)">
+            <div style={{display:'flex',gap:'var(--space-5)',alignItems:'flex-start'}}>
+              <span style={{width:44,height:44,flex:'none',display:'flex',alignItems:'center',justifyContent:'center',
+                background:'var(--surface-tint)',borderRadius:'var(--radius-sm)'}}><Icon name={i} size={22} color="var(--pine-600)"/></span>
+              <div>
+                <div style={{font:'var(--weight-bold) var(--text-sm)/1 var(--font-condensed)',letterSpacing:'var(--tracking-caps)',
+                  textTransform:'uppercase',color:'var(--text-muted)'}}>{t}</div>
+                {href
+                  ?<a href={href} style={{display:'block',marginTop:'var(--space-2)',font:'var(--weight-bold) var(--text-xl)/1.2 var(--font-sans)',
+                    color:'var(--pine-600)',textDecoration:'none'}}>{v}</a>
+                  :<div style={{marginTop:'var(--space-2)',font:'var(--weight-bold) var(--text-xl)/1.2 var(--font-sans)',color:'var(--text-strong)'}}>{v}</div>}
+                <p style={{marginTop:'var(--space-2)',font:'var(--type-body-sm)',color:'var(--text-muted)'}}>{d}</p>
+              </div>
+            </div>
+          </Card>)}
+        </div>
       </div>
       <div style={{display:'flex',flexDirection:'column',gap:'var(--space-5)'}}>
         <Card tone="dark" pad="var(--space-6)">
-          <div style={{font:'var(--type-eyebrow)',letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',color:'var(--yellow-500)'}}>The shop</div>
-          <div style={{marginTop:'var(--space-4)',display:'flex',flexDirection:'column',gap:'var(--space-4)'}}>
-            {[['map-pin','12230 Coral Gate Dr','El Paso, TX 79936'],['phone','(915) 276-2917','Mon–Fri, 8 AM – 5 PM'],
-              ['mail','rcgraphics77@gmail.com','Quotes same business day']].map(([i,a,b])=>
-              <div key={a} style={{display:'flex',gap:'var(--space-3)'}}>
-                <Icon name={i} size={18} color="var(--silver)" style={{marginTop:2}}/>
-                <div><div style={{font:'var(--weight-semibold) var(--text-sm)/1.3 var(--font-sans)',color:'var(--white)'}}>{a}</div>
-                <div style={{font:'var(--type-body-sm)',fontSize:'var(--text-xs)',color:'var(--ink-400)'}}>{b}</div></div></div>)}
-          </div>
+          <div style={{font:'var(--type-eyebrow)',letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',color:'var(--yellow-500)'}}>Have this ready</div>
+          <ul style={{marginTop:'var(--space-4)',padding:0,listStyle:'none',display:'flex',flexDirection:'column',gap:'var(--space-3)'}}>
+            {['What you need printed','Quantity','Size, paper stock and colors','Your deadline','Artwork, if you have it'].map(l=>
+              <li key={l} style={{display:'flex',gap:'var(--space-3)',alignItems:'center',font:'var(--type-body-sm)',color:'var(--ink-200)'}}>
+                <Icon name="check" size={16} color="var(--pine-500)"/>{l}</li>)}
+          </ul>
         </Card>
         <Card pad="var(--space-6)">
           <div style={{font:'var(--weight-bold) var(--text-sm)/1 var(--font-condensed)',letterSpacing:'var(--tracking-caps)',
@@ -52,10 +50,9 @@ function ContactPage({go,onSent}){
           <div style={{marginTop:'var(--space-5)'}}><Badge tone="rush" icon="zap">4 PM file cutoff</Badge></div>
         </Card>
         <Card pad="var(--space-6)" style={{background:'var(--ink-100)'}}>
-          <div style={{aspectRatio:'16 / 9',background:'var(--ink-200)',borderRadius:'var(--radius-sm)',
-            display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:8,color:'var(--ink-500)'}}>
-            <Icon name="map" size={26}/>
-            <span style={{font:'var(--weight-bold) var(--text-2xs)/1 var(--font-condensed)',letterSpacing:'var(--tracking-caps-loose)',textTransform:'uppercase'}}>Shop location map</span></div>
+          <iframe title="Map of El Paso, TX 79936" src="https://maps.google.com/maps?q=El%20Paso%2C%20TX%2079936&z=13&output=embed"
+            loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+            style={{display:'block',width:'100%',aspectRatio:'16 / 9',border:0,borderRadius:'var(--radius-sm)'}}/>
         </Card>
       </div>
     </div>
