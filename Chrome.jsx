@@ -21,15 +21,21 @@ function ProductsNavLink({route,go}){
   return <div style={{position:'relative',display:'flex'}} onMouseEnter={()=>setOpen(true)} onMouseLeave={()=>setOpen(false)}>
     <a href="#" onClick={e=>{e.preventDefault();go('catalog');}} style={navLinkStyle(active)}>
       All products<Icon name="chevron-down" size={14} color="var(--white)"/></a>
-    {open&&<div style={{position:'absolute',top:'100%',left:'50%',transform:'translateX(-50%)',paddingTop:'var(--space-2)',minWidth:220,zIndex:40}}>
+    {open&&<div style={{position:'absolute',top:'100%',left:'50%',transform:'translateX(-50%)',paddingTop:'var(--space-2)',zIndex:40}}>
       <div style={{background:'var(--white)',border:'1px solid var(--ink-200)',borderRadius:'var(--radius-sm)',
-        boxShadow:'var(--shadow-lg)',padding:'var(--space-2)',display:'flex',flexDirection:'column'}}>
-        {window.RC_PRODUCTS.map(p=><a key={p.slug} href="#" onClick={e=>{e.preventDefault();setOpen(false);go('product');}}
-          style={{display:'flex',alignItems:'center',gap:10,padding:'var(--space-2) var(--space-3)',borderRadius:'var(--radius-sm)',
-            textDecoration:'none',color:'var(--ink-700)',font:'var(--type-body-sm)'}}
-          onMouseEnter={e=>e.currentTarget.style.background='var(--ink-100)'}
-          onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
-          <Icon name={p.icon} size={16} color="var(--pine-600)"/>{p.name}</a>)}
+        boxShadow:'var(--shadow-lg)',padding:'var(--space-5)',display:'grid',gridTemplateColumns:'repeat(4,190px)',gap:'var(--space-5)'}}>
+        {window.RC_CATEGORIES.map(c=><div key={c.slug}>
+          <a href="#" onClick={e=>{e.preventDefault();setOpen(false);go('catalog');}}
+            style={{display:'flex',alignItems:'center',gap:8,padding:'0 var(--space-3) var(--space-2)',marginBottom:'var(--space-2)',
+              borderBottom:'2px solid var(--pine-500)',textDecoration:'none',color:'var(--text-strong)',
+              font:'var(--weight-bold) var(--text-sm)/1.2 var(--font-condensed)',letterSpacing:'var(--tracking-caps)',textTransform:'uppercase'}}>
+            <Icon name={c.icon} size={16} color="var(--pine-600)"/>{c.name}</a>
+          {window.rcProductsIn(c.slug).map(p=><a key={p.slug} href="#" onClick={e=>{e.preventDefault();setOpen(false);go('product',p.slug);}}
+            style={{display:'block',padding:'var(--space-2) var(--space-3)',borderRadius:'var(--radius-sm)',
+              textDecoration:'none',color:'var(--ink-700)',font:'var(--type-body-sm)'}}
+            onMouseEnter={e=>e.currentTarget.style.background='var(--ink-100)'}
+            onMouseLeave={e=>e.currentTarget.style.background='transparent'}>{p.name}</a>)}
+        </div>)}
       </div>
     </div>}
   </div>;
@@ -71,10 +77,10 @@ function Header({route,go}){
 }
 
 function Footer({go}){
-  const cols=[['Products',['Business cards','Flyers','Carbonless forms','Banners','Yard signs','Custom stickers']],
+  const cols=[['Products',window.RC_CATEGORIES.map(c=>[c.name,null,()=>go('catalog')])],
     ['Help',['File setup guide','Templates','Turnaround times','Shipping & pickup']],
     ['Contact',[['(915) 276-2917','tel:+19152762917'],['rcgraphics77@gmail.com','mailto:rcgraphics77@gmail.com'],
-      'East side El Paso, TX 79936']]];
+      'East side El Paso, TX 79936',['Facebook',window.RC_SOCIAL.facebook],['Instagram',window.RC_SOCIAL.instagram]]]];
   return <footer style={{background:'var(--ink-900)',color:'var(--ink-300)',marginTop:'var(--space-12)'}}>
     <div style={{height:6,display:'flex'}}>
       <i style={{flex:1,background:'var(--cyan-500)'}}/><i style={{flex:1,background:'var(--pine-500)'}}/>
@@ -84,7 +90,7 @@ function Footer({go}){
       <div>
         <Logo height={56} src="assets/logo-rc-lockup-dark.png"/>
         <p style={{marginTop:'var(--space-4)',font:'var(--type-body-sm)',color:'var(--ink-400)',maxWidth:'32ch'}}>
-          Commercial printing and design out of one shop: cards, flyers, forms, banners, signs and stickers.</p>
+          Commercial printing and design out of one shop: business essentials, labels and stickers, banners and signs, and T-shirts.</p>
         <div style={{marginTop:'var(--space-4)',display:'flex',gap:'var(--space-3)'}}>
           <Button variant="onDark" size="sm" onClick={()=>go('contact')}>Contact us</Button></div>
       </div>
@@ -92,8 +98,9 @@ function Footer({go}){
         <div style={{font:'var(--weight-bold) var(--text-2xs)/1 var(--font-condensed)',letterSpacing:'var(--tracking-caps-loose)',
           textTransform:'uppercase',color:'var(--silver)',marginBottom:'var(--space-4)'}}>{h}</div>
         <ul style={{listStyle:'none',margin:0,padding:0,display:'flex',flexDirection:'column',gap:'var(--space-3)'}}>
-          {items.map(i=>{const [label,href]=Array.isArray(i)?i:[i];
-            return <li key={label}><a href={href||'#'} onClick={href?undefined:e=>e.preventDefault()}
+          {items.map(i=>{const [label,href,onClick]=Array.isArray(i)?i:[i];
+            return <li key={label}><a href={href||'#'} onClick={href?undefined:e=>{e.preventDefault();onClick&&onClick();}}
+              {...(href&&href.startsWith('http')?{target:'_blank',rel:'noopener noreferrer'}:{})}
               style={{font:'var(--type-body-sm)',color:'var(--ink-300)',textDecoration:'none'}}>{label}</a></li>;})}
         </ul></div>)}
     </div>
@@ -117,6 +124,12 @@ function SectionHead({eyebrow,title,note}){
     {note&&<span style={{font:'var(--type-body-sm)',color:'var(--text-muted)'}}>{note}</span>}
   </div>;
 }
-Object.assign(window,{PromoBar,Header,Footer,SectionHead});
+// ProductCard wired to a product from data.js; unpriced products read "Call for pricing".
+function RcProductCard({p,go}){
+  const {ProductCard}=window.RCGraphicDesignSystem_084885;
+  return <ProductCard name={p.name} icon={p.icon} image={p.image} startingAt={p.price}
+    blurb={p.price?'Starting at '+p.priceQty+' pieces':'Call for pricing'} onClick={()=>go('product',p.slug)}/>;
+}
+Object.assign(window,{PromoBar,Header,Footer,SectionHead,RcProductCard});
 
 })();

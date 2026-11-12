@@ -5,7 +5,9 @@ function ContactPage(){
   const ways=[
     ['phone','Call us','(915) 276-2917','tel:+19152762917','Mon–Fri, 8 AM – 5 PM. The fastest way to get pricing.'],
     ['mail','Email us','rcgraphics77@gmail.com','mailto:rcgraphics77@gmail.com','Attach your artwork. We reply the same business day.'],
-    ['map-pin','Where we are','East side El Paso, TX 79936',null,'Call or email ahead to set up a visit or a pickup.']];
+    ['map-pin','Where we are','East side El Paso, TX 79936',null,'Call or email ahead to set up a visit or a pickup.'],
+    ['facebook','Facebook','RC Graphic Designs & Printing',window.RC_SOCIAL.facebook,'See our latest work and send us a message.'],
+    ['instagram','Instagram','@rcgraphic.design',window.RC_SOCIAL.instagram,'Follow along for new projects and samples.']];
   return <main style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'var(--space-9) var(--space-6) 0'}}>
     <div style={{display:'grid',gridTemplateColumns:'1.1fr .9fr',gap:'var(--space-9)'}}>
       <div>
@@ -23,7 +25,7 @@ function ContactPage(){
                 <div style={{font:'var(--weight-bold) var(--text-sm)/1 var(--font-condensed)',letterSpacing:'var(--tracking-caps)',
                   textTransform:'uppercase',color:'var(--text-muted)'}}>{t}</div>
                 {href
-                  ?<a href={href} style={{display:'block',marginTop:'var(--space-2)',font:'var(--weight-bold) var(--text-xl)/1.2 var(--font-sans)',
+                  ?<a href={href} {...(href.startsWith('http')?{target:'_blank',rel:'noopener noreferrer'}:{})} style={{display:'block',marginTop:'var(--space-2)',font:'var(--weight-bold) var(--text-xl)/1.2 var(--font-sans)',
                     color:'var(--pine-600)',textDecoration:'none'}}>{v}</a>
                   :<div style={{marginTop:'var(--space-2)',font:'var(--weight-bold) var(--text-xl)/1.2 var(--font-sans)',color:'var(--text-strong)'}}>{v}</div>}
                 <p style={{marginTop:'var(--space-2)',font:'var(--type-body-sm)',color:'var(--text-muted)'}}>{d}</p>

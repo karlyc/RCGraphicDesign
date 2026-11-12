@@ -1,5 +1,52 @@
 (()=>{
-const {Button,Icon,Badge,Card,ProductCard,ReviewStars,Callout,Logo}=window.RCGraphicDesignSystem_084885;
+const {Button,IconButton,Icon,Badge,Card,ReviewStars,Callout,Logo}=window.RCGraphicDesignSystem_084885;
+
+// Loads the Facebook SDK once. Rejects if it is blocked or fails to load.
+let fbSdk=null;
+function loadFacebookSdk(){
+  if(!fbSdk) fbSdk=new Promise((resolve,reject)=>{
+    if(window.FB) return resolve(window.FB);
+    const s=document.createElement('script');
+    s.src='https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v21.0';
+    s.async=true;s.crossOrigin='anonymous';
+    s.onload=()=>window.FB?resolve(window.FB):reject();
+    s.onerror=reject;
+    document.body.appendChild(s);
+  });
+  return fbSdk;
+}
+
+// Shows the first Facebook reel once its player reports ready. Until then, and if the
+// video is broken, blocked or slow (10 s), the original hero photo is shown instead.
+function HeroMedia(){
+  const ref=React.useRef(null);
+  const [state,setState]=React.useState('loading'); // 'loading' | 'video' | 'photo'
+  React.useEffect(()=>{
+    let settled=false;
+    const fallBack=()=>{if(!settled){settled=true;setState('photo');}};
+    const timer=setTimeout(fallBack,10000);
+    loadFacebookSdk().then(FB=>{
+      FB.Event.subscribe('xfbml.ready',msg=>{
+        if(settled||msg.type!=='video'||msg.id!=='rc-hero-video')return;
+        settled=true;clearTimeout(timer);setState('video');
+        msg.instance.subscribe('error',()=>setState('photo'));
+      });
+      if(ref.current)FB.XFBML.parse(ref.current);
+    }).catch(fallBack);
+    return ()=>{settled=true;clearTimeout(timer);};
+  },[]);
+  const showVideo=state==='video';
+  return <div style={{position:'relative',height:480,border:'1px solid var(--ink-600)',borderRadius:'var(--radius-sm)',
+    overflow:'hidden',background:'var(--ink-950)'}}>
+    {!showVideo&&<img src="assets/graphicdesignhero.jpg" alt="Printed samples from RC Graphic Designs & Printing"
+      style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}}/>}
+    {state!=='photo'&&<div ref={ref} style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',
+      visibility:showVideo?'visible':'hidden'}}>
+      <div id="rc-hero-video" className="fb-video" data-href={window.RC_VIDEOS[0]} data-width="270"
+        data-show-text="false" data-allowfullscreen="true"/>
+    </div>}
+  </div>;
+}
 
 function Hero({go}){
   return <section style={{background:'var(--ink-700)',color:'var(--white)',position:'relative',overflow:'hidden'}}>
@@ -22,10 +69,7 @@ function Hero({go}){
               <Icon name={i} size={16} color="var(--silver)"/>{l}</span>)}
         </div>
       </div>
-      <div style={{aspectRatio:'4 / 3',border:'1px solid var(--ink-600)',borderRadius:'var(--radius-sm)',overflow:'hidden'}}>
-        <img src="assets/graphicdesignhero.jpg" alt="Printed samples from RC Graphic Designs & Printing"
-          style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}}/>
-      </div>
+      <HeroMedia/>
     </div>
     <div style={{height:6,display:'flex'}}><i style={{flex:1,background:'var(--cyan-500)'}}/><i style={{flex:1,background:'var(--pine-500)'}}/>
       <i style={{flex:1,background:'var(--yellow-500)'}}/><i style={{flex:1,background:'var(--ink-950)'}}/></div>
@@ -39,14 +83,17 @@ function Home({go}){
   return <main>
     <Hero go={go}/>
     <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'var(--space-10) var(--space-6) 0'}}>
-      <SectionHead eyebrow="What we print" title="Six things, done properly" note="Starting prices for the smallest run. Call for exact pricing."/>
+      <SectionHead eyebrow="What we print" title="Popular products" note="Starting prices shown. Call for exact pricing."/>
       <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'var(--space-5)'}}>
-        {window.RC_PRODUCTS.map(p=><ProductCard key={p.slug} name={p.name} blurb={p.blurb} startingAt={p.from}
-          turnaround={p.turnaround} icon={p.icon} image={p.image} badge={p.badge} onClick={()=>go('product')}/>)}
+        {window.RC_FEATURED.map(s=><RcProductCard key={s} p={window.rcProduct(s)} go={go}/>)}
       </div>
+      <div style={{display:'flex',justifyContent:'center',marginTop:'var(--space-7)'}}>
+        <Button size="lg" iconAfter="arrow-right" onClick={()=>go('catalog')}>See all products</Button></div>
     </div>
 
-    <div style={{marginTop:'var(--space-11)'}}><CustomPrinting/></div>
+    <VideoSlideshow/>
+
+    <CustomPrinting/>
 
     <section style={{marginTop:'var(--space-11)',background:'var(--surface-sunken)'}}>
       <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'var(--space-11) var(--space-6)'}}>
@@ -94,6 +141,40 @@ function Home({go}){
   </main>;
 }
 
+// Only the current reel is mounted, so changing slides stops the one that was playing.
+function VideoSlideshow(){
+  const videos=window.RC_VIDEOS;
+  const [i,setI]=React.useState(0);
+  const move=d=>setI(n=>(n+d+videos.length)%videos.length);
+  const src='https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(videos[i])+'&show_text=false&width=315&height=560';
+  return <section style={{marginTop:'var(--space-11)',background:'var(--ink-950)'}}>
+   <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'var(--space-11) var(--space-6)'}}>
+    <div style={{textAlign:'center',marginBottom:'var(--space-7)'}}>
+      <div style={{font:'var(--type-eyebrow)',letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',
+        color:'var(--pine-500)',marginBottom:'var(--space-2)'}}>From our shop</div>
+      <h2 style={{font:'var(--type-h2)',color:'var(--white)'}}>See our work in action</h2></div>
+    <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'var(--space-6)'}}>
+      <IconButton icon="chevron-left" label="Previous video" variant="primary" onClick={()=>move(-1)}/>
+      <div style={{width:315,maxWidth:'100%',aspectRatio:'9 / 16',background:'var(--ink-900)',border:'1px solid var(--ink-700)',borderRadius:'var(--radius-sm)',overflow:'hidden'}}>
+        <iframe key={videos[i]} title={'RC Graphic Designs & Printing video '+(i+1)+' of '+videos.length} src={src}
+          loading="lazy" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          style={{display:'block',width:'100%',height:'100%',border:0}}/>
+      </div>
+      <IconButton icon="chevron-right" label="Next video" variant="primary" onClick={()=>move(1)}/>
+    </div>
+    <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'var(--space-2)',marginTop:'var(--space-4)'}}>
+      {videos.map((v,n)=><button key={v} aria-label={'Show video '+(n+1)} aria-current={n===i} onClick={()=>setI(n)}
+        style={{width:10,height:10,padding:0,border:0,borderRadius:'var(--radius-pill)',cursor:'pointer',
+          background:n===i?'var(--pine-500)':'var(--ink-600)'}}/>)}
+    </div>
+    <div style={{display:'flex',justifyContent:'center',marginTop:'var(--space-4)'}}>
+      <a href={videos[i]} target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:6,
+        font:'var(--type-body-sm)',color:'var(--pine-500)',textDecoration:'none'}}>
+        <Icon name="facebook" size={16} color="var(--pine-500)"/>Watch on Facebook</a></div>
+   </div>
+  </section>;
+}
+
 function CustomPrinting(){
   return <section style={{background:'var(--ink-700)',color:'var(--white)',position:'relative',overflow:'hidden'}}>
     <div style={{maxWidth:'var(--container-max)',margin:'0 auto',display:'grid',gridTemplateColumns:'.42fr 1fr',alignItems:'stretch'}}>
@@ -107,7 +188,7 @@ function CustomPrinting(){
         padding:'var(--space-9) var(--space-8)'}}>
         <div style={{display:'flex',alignItems:'center',gap:'var(--space-4)'}}>
           <span style={{font:'var(--weight-bold) var(--text-xs)/1 var(--font-condensed)',letterSpacing:'var(--tracking-caps)',
-            textTransform:'uppercase',color:'var(--pine-500)'}}>Business cards · Flyers · Banners · Yard signs · Stickers</span>
+            textTransform:'uppercase',color:'var(--pine-500)'}}>Business Essentials · Labels &amp; Stickers · Banners &amp; Signs · T-Shirts</span>
           <span style={{flex:1,height:1,background:'var(--pine-500)',opacity:.55}}/>
         </div>
         <h2 style={{font:'var(--type-display)',fontSize:'var(--text-4xl)',color:'var(--white)',letterSpacing:'var(--tracking-tight)'}}>

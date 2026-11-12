@@ -1,5 +1,6 @@
 <!-- @dsCard group="Website" viewport="1280x900" name="RC Graphic Design website" subtitle="Click-through informational site: home, catalog, product info, contact" -->
 <!doctype html><html><head><meta charset="utf-8"><title>RC Graphic Designs &amp; Printing</title>
+<link rel="icon" type="image/png" href="../../assets/littleicon.png">
 <link rel="stylesheet" href="../../styles.css"></head>
 <body><div id="root"></div>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -15,14 +16,15 @@
 <script type="text/babel" data-presets="react">
 function App(){
   const [route,setRoute]=React.useState('home');
-  React.useEffect(()=>{window.scrollTo(0,0);},[route]);
-  const go=r=>setRoute(r);
+  const [slug,setSlug]=React.useState(null);
+  React.useEffect(()=>{window.scrollTo(0,0);},[route,slug]);
+  const go=(r,s=null)=>{setRoute(r);setSlug(s);};
   return <div>
     <PromoBar/>
     <Header route={route} go={go}/>
     {route==='home'&&<Home go={go}/>}
     {route==='catalog'&&<CatalogPage go={go}/>}
-    {route==='product'&&<ProductPage go={go}/>}
+    {route==='product'&&<ProductPage go={go} slug={slug}/>}
     {route==='contact'&&<ContactPage go={go}/>}
     <Footer go={go}/>
   </div>;
