@@ -15,7 +15,7 @@ function CatalogPage({go}){
     </section>)}
     <Card tone="tint" pad="var(--space-7)" style={{marginTop:'var(--space-10)',display:'flex',
       alignItems:'center',justifyContent:'space-between',gap:'var(--space-6)'}}>
-      <div><div style={{font:'var(--type-h3)',color:'var(--text-strong)'}}>Something custom?</div>
+      <div><div style={{font:'var(--type-h3)',color:'var(--text-strong)'}}>Any Custom Prints</div>
         <p style={{font:'var(--type-body-sm)',color:'var(--ink-700)',marginTop:4}}>Menus, table tents, event programs — call or email us with the details and we will price it.</p></div>
       <Button onClick={()=>go('contact')}>Contact us</Button></Card>
   </main>;

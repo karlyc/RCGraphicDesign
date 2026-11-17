@@ -128,7 +128,7 @@ function SectionHead({eyebrow,title,note}){
 function RcProductCard({p,go}){
   const {ProductCard}=window.RCGraphicDesignSystem_084885;
   return <ProductCard name={p.name} icon={p.icon} image={p.image} startingAt={p.price}
-    blurb={p.price?'Starting at '+p.priceQty+' pieces':'Call for pricing'} onClick={()=>go('product',p.slug)}/>;
+    blurb={p.price?undefined:'Call for pricing'} onClick={()=>go('product',p.slug)}/>;
 }
 Object.assign(window,{PromoBar,Header,Footer,SectionHead,RcProductCard});
 
